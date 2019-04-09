@@ -10,6 +10,9 @@
 #import "RACHomeViewController.h"
 #import "RACMapViewController.h"
 #import "RACFilterViewController.h"
+#import "RACRACSubjectVC.h"
+#import "RACRACMulticastConnectionVC.h"
+#import "RACRACCommandVC.h"
 
 @interface MenuListViewController ()
 
@@ -22,7 +25,7 @@
 
 -(NSMutableArray *)menuArr{
     if (!_menuArr) {
-        _menuArr = [NSMutableArray arrayWithArray:@[@"基本控件使用",@"映射",@"信号过滤"]];
+        _menuArr = [NSMutableArray arrayWithArray:@[@"基本控件使用",@"映射",@"信号过滤",@"RACSubject",@"RACMulticastConnection",@"RACCommand",@"TestDemo"]];
     }
     return _menuArr;
 }
@@ -80,6 +83,15 @@
     }else if (indexPath.row == 2){
         //信号过滤
         [self.navigationController pushViewController:[RACFilterViewController new] animated:YES];
+    }else if (indexPath.row == 3){
+        //RACSubject
+        [self.navigationController pushViewController:[RACRACSubjectVC new] animated:YES];
+    }else if (indexPath.row == 4){
+        //RACMulticastConnection
+        [self.navigationController pushViewController:[RACRACMulticastConnectionVC new] animated:YES];
+    }else if (indexPath.row == 5){
+        //RACCommand
+        [self.navigationController pushViewController:[RACRACCommandVC new] animated:YES];
     }
 }
 
