@@ -1,0 +1,19 @@
+//
+//  RACTest.pch
+//  RACTest
+//
+//  Created by anfa on 2019/4/9.
+//  Copyright © 2019 anfa. All rights reserved.
+//
+
+#ifndef RACTest_pch
+#define RACTest_pch
+
+#import <ReactiveObjC/ReactiveObjC.h>
+
+/*------------强弱引用-----------*/
+// block self
+#define WEAKSELF typeof(self) __weak weakSelf = self;
+#define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;
+
+#endif /* RACTest_pch */
