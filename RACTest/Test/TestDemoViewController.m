@@ -7,6 +7,7 @@
 //
 
 #import "TestDemoViewController.h"
+#import "LoginViewModel.h"
 
 @interface TestDemoViewController ()
 
@@ -15,24 +16,52 @@
 @property (weak, nonatomic) IBOutlet UITextField *textPassword;
 @property (weak, nonatomic) IBOutlet UILabel *statusLable;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-
+@property (nonatomic,strong)LoginViewModel *loginViewModel;
 @end
 
 @implementation TestDemoViewController
 
+-(LoginViewModel *)loginViewModel{
+    if (!_loginViewModel) {
+        _loginViewModel = [[LoginViewModel alloc] init];
+    }
+    return _loginViewModel;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    //绑定试图与viewModel
+    [self bindViewModel];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)bindViewModel{
+    @weakify(self)
+    RAC(self.loginViewModel,userName) = self.textUserName.rac_textSignal;
+    RAC(self.loginViewModel,password) = self.textPassword.rac_textSignal;
+    //将登录按钮能否点击与viewModel中的loginEnableSignal信号进行绑定
+    RAC(self.loginButton,enabled) = self.loginViewModel.loginEnableSignal;
+    RAC(self.statusLable,text) = self.loginViewModel.statusSubject;
+    
+    //头像信号订阅
+    [RACObserve(self.loginViewModel, iconURL) subscribeNext:^(id  _Nullable x) {
+        @strongify(self);
+        //根据返回的订阅信号自定义头像image
+        self.iconImage.image = [UIImage imageNamed:x];
+    }];
+    
+    //登录按钮能否点击颜色变化
+    [self.loginViewModel.loginEnableSignal subscribeNext:^(NSNumber *x) {
+        @strongify(self);
+        UIColor *color = x.integerValue==0?[UIColor lightGrayColor]:[UIColor purpleColor];
+        [self.loginButton setBackgroundColor:color];
+    }];
+    
+    //登录请求
+    [[self.loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self);
+        [self.loginViewModel.loginCommand execute:@"登录事件触发"];
+    }];
 }
-*/
 
 @end

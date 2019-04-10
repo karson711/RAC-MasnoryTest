@@ -13,6 +13,7 @@
 #import "RACRACSubjectVC.h"
 #import "RACRACMulticastConnectionVC.h"
 #import "RACRACCommandVC.h"
+#import "Test/TestDemoViewController.h"
 
 @interface MenuListViewController ()
 
@@ -25,7 +26,7 @@
 
 -(NSMutableArray *)menuArr{
     if (!_menuArr) {
-        _menuArr = [NSMutableArray arrayWithArray:@[@"基本控件使用",@"映射",@"信号过滤",@"RACSubject",@"RACMulticastConnection",@"RACCommand",@"TestDemo"]];
+        _menuArr = [NSMutableArray arrayWithArray:@[@"基本控件使用",@"映射",@"信号过滤",@"RACSubject",@"RACMulticastConnection",@"RACCommand",@"练习小Demo-登录页"]];
     }
     return _menuArr;
 }
@@ -92,6 +93,9 @@
     }else if (indexPath.row == 5){
         //RACCommand
         [self.navigationController pushViewController:[RACRACCommandVC new] animated:YES];
+    }else if (indexPath.row == 6){
+        //练习demo
+        [self.navigationController pushViewController:[TestDemoViewController new] animated:YES];
     }
 }
 
