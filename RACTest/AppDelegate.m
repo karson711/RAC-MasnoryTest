@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "BaseTabBarController.h"
+#import "BaseTabbarViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,32 +20,12 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    
-    BaseTabBarController *tab = [[BaseTabBarController alloc] init];
+
+    BaseTabbarViewController *tab = [[BaseTabbarViewController alloc] init];
     self.window.rootViewController = tab;
     [self.window makeKeyAndVisible];
     return YES;
 }
-
-- (void)setTabBarItem:(UITabBarItem *)tabbarItem
-                title:(NSString *)title
-            titleSize:(CGFloat)size
-        titleFontName:(NSString *)fontName
-        selectedImage:(NSString *)selectedImage
-   selectedTitleColor:(UIColor *)selectColor
-          normalImage:(NSString *)unselectedImage
-     normalTitleColor:(UIColor *)unselectColor
-{
-    //设置图片
-    tabbarItem = [tabbarItem initWithTitle:title image:[[UIImage imageNamed:unselectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    
-    // S未选中字体颜色
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:unselectColor,NSFontAttributeName:[UIFont fontWithName:fontName size:size]} forState:UIControlStateNormal];
-    
-    // 选中字体颜色
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:selectColor,NSFontAttributeName:[UIFont fontWithName:fontName size:size]} forState:UIControlStateSelected];
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

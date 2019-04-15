@@ -23,7 +23,11 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Masonry基本使用";
     
+    self.yellowView = [[UIView alloc] init];
+    self.yellowView.backgroundColor = [UIColor yellowColor];
+    [self.view addSubview:self.yellowView];
     
+    [self setUpPadding];
 }
 
 //设置内边距
@@ -35,7 +39,10 @@
      
      除了下面例子中的offset()方法，还有针对不同坐标系的centerOffset()、sizeOffset()、valueOffset()之类的方法。
      */
-//    [self.yellowView ];
+    [self.yellowView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).with.offset(10);
+        make.right.equalTo(self.view).with.offset(10);
+    }];
 }
 
 

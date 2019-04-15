@@ -10,6 +10,7 @@
 #define RACTest_pch
 
 #import <ReactiveObjC/ReactiveObjC.h>
+#import <Masonry.h>
 
 /*------------强弱引用-----------*/
 // block self
