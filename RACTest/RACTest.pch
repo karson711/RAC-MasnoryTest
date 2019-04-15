@@ -11,6 +11,8 @@
 
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <Masonry.h>
+#import <BlocksKit.h>
+#import <BlocksKit+UIKit.h>
 
 /*------------强弱引用-----------*/
 // block self
