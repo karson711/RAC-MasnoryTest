@@ -49,7 +49,40 @@
     [self setUpPadding];
 }
 
-//设置内边距
+/*
+ //基础API
+ mas_makeConstraints()    添加约束
+ mas_remakeConstraints()  移除之前的约束，重新添加新的约束
+ mas_updateConstraints()  更新约束，写哪条更新哪条，其他约束不变
+ 
+ equalTo()       参数是对象类型，一般是视图对象或者mas_width这样的坐标系对象
+ mas_equalTo()   和上面功能相同，参数可以传递基础数据类型对象，可以理解为比上面的API更强大
+ 
+ width()         用来表示宽度，例如代表view的宽度
+ mas_width()     用来获取宽度的值。和上面的区别在于，一个代表某个坐标系对象，一个用来获取坐标系对象的值
+ 
+ //更新约束和布局
+ - (void)updateConstraintsIfNeeded  调用此方法，如果有标记为需要重新布局的约束，则立即进行重新布局，内部会调用updateConstraints方法
+ - (void)updateConstraints          重写此方法，内部实现自定义布局过程
+ - (BOOL)needsUpdateConstraints     当前是否需要重新布局，内部会判断当前有没有被标记的约束
+ - (void)setNeedsUpdateConstraints  标记需要进行重新布局
+ 
+ Masonry本质上就是对系统AutoLayout进行的封装，包括里面很多的API，都是对系统API进行了一次二次包装。
+ typedef NS_OPTIONS(NSInteger, MASAttribute) {
+ MASAttributeLeft = 1 << NSLayoutAttributeLeft,
+ MASAttributeRight = 1 << NSLayoutAttributeRight,
+ MASAttributeTop = 1 << NSLayoutAttributeTop,
+ MASAttributeBottom = 1 << NSLayoutAttributeBottom,
+ MASAttributeLeading = 1 << NSLayoutAttributeLeading,
+ MASAttributeTrailing = 1 << NSLayoutAttributeTrailing,
+ MASAttributeWidth = 1 << NSLayoutAttributeWidth,
+ MASAttributeHeight = 1 << NSLayoutAttributeHeight,
+ MASAttributeCenterX = 1 << NSLayoutAttributeCenterX,
+ MASAttributeCenterY = 1 << NSLayoutAttributeCenterY,
+ MASAttributeBaseline = 1 << NSLayoutAttributeBaseline,
+ };
+ 
+ */
 -(void)setUpPadding{
     /**
      设置yellow视图和self.view等大，并且有10的内边距。
