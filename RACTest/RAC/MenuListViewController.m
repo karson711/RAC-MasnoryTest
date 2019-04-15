@@ -35,7 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"RAC练习目录";
+    self.title = @"RAC";
 }
 
 #pragma mark - UITableViewDelegate and DataSource

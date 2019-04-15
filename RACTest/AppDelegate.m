@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MenuListViewController.h"
-
+#import "BaseTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -21,10 +20,30 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[MenuListViewController alloc]init]];
-    self.window.rootViewController = nav;
+    
+    BaseTabBarController *tab = [[BaseTabBarController alloc] init];
+    self.window.rootViewController = tab;
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)setTabBarItem:(UITabBarItem *)tabbarItem
+                title:(NSString *)title
+            titleSize:(CGFloat)size
+        titleFontName:(NSString *)fontName
+        selectedImage:(NSString *)selectedImage
+   selectedTitleColor:(UIColor *)selectColor
+          normalImage:(NSString *)unselectedImage
+     normalTitleColor:(UIColor *)unselectColor
+{
+    //设置图片
+    tabbarItem = [tabbarItem initWithTitle:title image:[[UIImage imageNamed:unselectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
+    // S未选中字体颜色
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:unselectColor,NSFontAttributeName:[UIFont fontWithName:fontName size:size]} forState:UIControlStateNormal];
+    
+    // 选中字体颜色
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:selectColor,NSFontAttributeName:[UIFont fontWithName:fontName size:size]} forState:UIControlStateSelected];
 }
 
 
