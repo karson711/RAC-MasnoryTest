@@ -8,6 +8,7 @@
 
 #import "MasonryViewController.h"
 #import "MasonryBasicVC.h"
+#import "MasonryTestVC.h"
 
 @interface MasonryViewController ()
 
@@ -21,7 +22,7 @@
 
 -(NSMutableArray *)masonryArr{
     if (!_masonryArr) {
-        _masonryArr = [NSMutableArray arrayWithArray:@[@"Masonry基本使用"]];
+        _masonryArr = [NSMutableArray arrayWithArray:@[@"Masonry基本使用",@"子视图等高/等宽练习"]];
     }
     return _masonryArr;
 }
@@ -74,7 +75,8 @@
         //基本使用
         [self.navigationController pushViewController:[MasonryBasicVC new] animated:YES];
     }else if (indexPath.row == 1){
-        
+        //子视图等高/等宽练习
+        [self.navigationController pushViewController:[MasonryTestVC new] animated:YES];
     }
 }
 @end
