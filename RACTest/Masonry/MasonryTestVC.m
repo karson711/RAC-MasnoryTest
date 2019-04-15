@@ -7,6 +7,7 @@
 //
 
 #import "MasonryTestVC.h"
+#define padding 10
 
 @interface MasonryTestVC ()
 
@@ -34,7 +35,8 @@
     self.redView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.redView];
     
-    [self setUpPadding];
+//    [self setUpPadding];
+    [self testTwo];
 }
 
 -(void)setUpPadding{
@@ -45,19 +47,17 @@
      因为用offset设置right和bottom的边距时，这两个值应该是负数，所以如果通过offset来统一设置值会有问题。
      */
     
-    CGFloat padding = 10;
-    
-//    /**********  等高   ***********/
+    /**********  等高   ***********/
 //    [self.redView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.right.top.equalTo(self.view).insets(UIEdgeInsetsMake(padding, padding, 0, padding));
 //        make.bottom.equalTo(self.blueView.mas_top).offset(-padding);
 //    }];
-//    
+//
 //    [self.blueView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.right.equalTo(self.view).insets(UIEdgeInsetsMake(0, padding, 0, padding));
 //        make.bottom.equalTo(self.yellowView.mas_top).offset(-padding);
 //    }];
-//    
+//
 //    /**
 //     下面设置make.height的数组是关键，通过这个数组可以设置这三个视图高度相等。其他例如宽度之类的，也是类似的方式。
 //     */
@@ -78,6 +78,23 @@
     [self.yellowView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.right.equalTo(self.view).insets(UIEdgeInsetsMake(padding, 0, padding, padding));
         make.width.equalTo(@[self.redView, self.blueView]);
+    }];
+}
+
+//子视图垂直居中练习
+-(void)testTwo{
+    [self.redView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.view);
+        make.left.equalTo(self.view).mas_offset(padding);
+        make.right.equalTo(self.blueView.mas_left).mas_offset(-padding);
+        make.height.mas_equalTo(150);
+    }];
+    
+    [self.blueView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.view);
+        make.right.equalTo(self.view).mas_offset(-padding);
+        make.width.equalTo(self.redView);
+        make.height.mas_equalTo(150);
     }];
 }
 
