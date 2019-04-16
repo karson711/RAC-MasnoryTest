@@ -7,7 +7,7 @@
 //
 
 #import "BlockKitBasicUseVC.h"
-
+#import <NSMutableDictionary+BlocksKit.h>
 
 @interface BlockKitBasicUseVC ()
 
@@ -16,7 +16,10 @@
 @implementation BlockKitBasicUseVC
 /*
  参考网址：
+ 实现原理
  http://www.cocoachina.com/ios/20160505/16112.html
+ github地址
+ https://github.com/BlocksKit/BlocksKit
  */
 
 - (void)viewDidLoad {
@@ -26,6 +29,10 @@
 //    [self associatedObject];
     
     [self uiKitAction];
+    
+//    [self blockAction];
+    
+    [self mutableContainerAction];
     
 }
 
@@ -102,5 +109,84 @@
     }]];
     
 }
+
+/*
+ //串行遍历容器中所有元素
+ - (void)bk_each:(void (^)(id obj))block;
+ //并发遍历容器中所有元素（不要求容器中元素顺次遍历的时候可以使用此种遍历方式来提高遍历速度）
+ - (void)bk_apply:(void (^)(id obj))block;
+ //返回第一个符合block条件（让block返回YES）的对象
+ - (id)bk_match:(BOOL (^)(id obj))block;
+ //返回所有符合block条件（让block返回YES）的对象
+ - (NSArray *)bk_select:(BOOL (^)(id obj))block;
+ //返回所有！！！不符合block条件（让block返回YES）的对象
+ - (NSArray *)bk_reject:(BOOL (^)(id obj))block;
+ //返回对象的block映射数组
+ - (NSArray *)bk_map:(id (^)(id obj))block;
+ 
+ //查看容器是否有符合block条件的对象
+ //判断是否容器中至少有一个元素符合block条件
+ - (BOOL)bk_any:(BOOL (^)(id obj))block;
+ //判断是否容器中所有元素都！！！不符合block条件
+ - (BOOL)bk_none:(BOOL (^)(id obj))block;
+ //判断是否容器中所有元素都符合block条件
+ - (BOOL)bk_all:(BOOL (^)(id obj))block;
+ */
+-(void)blockAction{
+    NSArray *arr = @[@"a",@"ds",@"dd",@"s",@"c"];
+    NSString *str = [arr bk_match:^BOOL(id obj) {
+        return ((NSString *)obj).length == 1;
+    }];
+    
+    NSArray *arr_01 = [arr bk_select:^BOOL(id obj) {
+        return ((NSString *)obj).length == 1;
+    }];
+    
+    NSArray *arr_02 = [arr bk_reject:^BOOL(id obj) {
+        return ((NSString *)obj).length == 1;
+    }];
+    
+    NSLog(@"str = %@",str);
+    NSLog(@"arr_01 = %@",arr_01);
+    NSLog(@"arr_02 = %@",arr_02);
+}
+
+/*
+//删除容器中!!!不符合block条件的对象，即只保留符合block条件的对象
+- (void)bk_performSelect:(BOOL (^)(id obj))block;
+
+//删除容器中符合block条件的对象
+- (void)bk_performReject:(BOOL (^)(id obj))block;
+
+//容器中的对象变换为自己的block映射对象
+- (void)bk_performMap:(id (^)(id obj))block;
+ */
+-(void)mutableContainerAction{
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:@[@"302",@"200",@"290",@"100",@"430"]];
+    BOOL(^valiationBlock)(id) = ^(NSString *obj){
+        BOOL match = [obj integerValue] > 300?YES:NO;
+        return match;
+    };
+    [arr bk_performSelect:valiationBlock];
+    NSLog(@"arr===%@",arr);
+    
+    id(^transformBlock)(id) = ^(NSString *obj){
+        return [obj substringToIndex:1];
+    };
+    [arr bk_performMap:transformBlock];
+    NSLog(@"arr===%@",arr);
+    
+    NSMutableDictionary *subject = [NSMutableDictionary dictionary];
+    [subject setObject:@1 forKey:@"1"];
+    [subject setObject:@2 forKey:@"2"];
+    [subject setObject:@3 forKey:@"3"];
+    
+    void(^keyValueBlock)(id,id) = ^(id key,id value){
+        NSLog(@"key:Value=%@:%@",key,value);
+    };
+    [subject bk_each:keyValueBlock];
+}
+
+
 
 @end
