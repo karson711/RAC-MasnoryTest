@@ -8,6 +8,7 @@
 
 #import "BlockKitBasicUseVC.h"
 #import <NSMutableDictionary+BlocksKit.h>
+#import "TestObserveModel.h"
 
 @interface BlockKitBasicUseVC ()
 
@@ -30,6 +31,8 @@
     
     [self uiKitAction];
     
+    [self OhterAction];
+    
 //    [self blockAction];
     
     [self mutableContainerAction];
@@ -49,6 +52,24 @@
     NSObject *test = [[NSObject alloc] init];
     [test bk_associateValue:@"Anfa" withKey:@"name"];
     NSLog(@"name---%@",[test bk_associatedValueForKey:@"name"]);
+}
+
+-(void)OhterAction{
+    NSTimer *timer = [NSTimer bk_scheduledTimerWithTimeInterval:10 block:^(NSTimer *time) {
+        NSLog(@"定时器");
+        [time invalidate];
+    } repeats:NO];
+    [timer fire];
+    
+    
+    TestObserveModel *testModel = [[TestObserveModel alloc] init];
+    void(^observeBlock)(id) = ^(id obj){
+        NSLog(@"添加observe");
+    };
+    NSString *token = [testModel bk_addObserverForKeyPath:@"kvc" task:observeBlock];
+    [testModel setValue:@(NO) forKey:@"kvc"];
+    NSLog(@"testModel.kvc====%d",testModel.kvc);
+    [self bk_removeObserverForKeyPath:@"testModel.kvc" identifier:token];
 }
 
 /*
