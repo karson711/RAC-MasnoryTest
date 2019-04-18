@@ -13,7 +13,7 @@
 #import "RACRACSubjectVC.h"
 #import "RACRACMulticastConnectionVC.h"
 #import "RACRACCommandVC.h"
-#import "Test/TestDemoViewController.h"
+#import "TestDemoViewController.h"
 
 @interface MenuListViewController ()
 

@@ -8,5 +8,6 @@ pod 'SDWebImage'
 pod 'BlocksKit'
 pod 'AFNetworking'
 pod 'SVProgressHUD'
+pod 'YYModel'
 
 end

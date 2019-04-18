@@ -7,6 +7,7 @@
 //
 
 #import "TestDemoViewController.h"
+#import "MovieListViewController.h"
 #import "LoginViewModel.h"
 
 @interface TestDemoViewController ()
@@ -62,6 +63,14 @@
         @strongify(self);
         [self.loginViewModel.loginCommand execute:@"登录事件触发"];
     }];
+    
+    [[self.loginViewModel.loginCommand.executionSignals switchToLatest] subscribeNext:^(id  _Nullable x) {
+        @strongify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController pushViewController:[MovieListViewController new] animated:YES];
+        });
+    }];
+    
 }
 
 @end

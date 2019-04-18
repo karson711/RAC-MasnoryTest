@@ -13,6 +13,11 @@
 #import <Masonry.h>
 #import <BlocksKit.h>
 #import <BlocksKit+UIKit.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <AFNetworking.h>
+#import <SVProgressHUD.h>
+#import <YYModel.h>
+
 
 /*------------强弱引用-----------*/
 // block self
